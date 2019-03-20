@@ -1,0 +1,30 @@
+#!/bin/bash
+
+basedir=`cd $(dirname $0); pwd -P`
+echo $basedir
+
+function transform() {
+  read -t 30 -p "请输入文件名:" file_name
+  
+  image_dir=${basedir}"/"${file_name}
+  origin_image_dir=${image_dir}".9.png"
+  transform_image_dir=${image_dir}".png"
+
+  if [ ! -f "$origin_image_dir" ]; then
+  	echo "当前目录不存在"${file_name}".9.png，请确认图片与脚本处于同一目录~"
+  	transform
+  fi
+
+  echo "原始文件："${origin_image_dir}
+  chmod +x ${basedir}/aapt
+  ${basedir}/./aapt s -i $origin_image_dir -o $transform_image_dir
+  echo "文件已经生成："${transform_image_dir}
+}
+
+transform
+
+exit 0
+
+
+
+

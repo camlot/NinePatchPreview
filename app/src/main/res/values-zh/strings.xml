@@ -3,6 +3,9 @@
 
     <string name="width">宽度</string>
     <string name="height">高度</string>
+    <string name="input_file_name_hint">输入.9图片名称</string>
     <string name="choose_image_hint">请先点击右侧按钮选择一张图片</string>
+    <string name="image_full_screen_hint">已经充满屏幕了，不能再放大了哦！</string>
+    <string name="image_too_large_warning">图片太大了，解析失败啦！</string>
 
 </resources>

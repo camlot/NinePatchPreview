@@ -4,11 +4,14 @@ import android.content.Context;
 import android.graphics.drawable.NinePatchDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -22,13 +25,15 @@ public class MainActivity extends AppCompatActivity {
     private int mScreenHeight;
     private int mScreenWidth;
 
+    private String mImagePath;
 
-    private ImageView mChooseIv;
     private ImageView mNinePatchIv;
     private TextView mWidthTv;
     private TextView mHeightTv;
     private MySeekBar mWidthSeekBar;
     private MySeekBar mHeightSeekBar;
+    private EditText mImageNameEt;
+    private ImageView mAddImageIv;
 
     private NinePatch mNinePatch;
     private NinePatchDrawable mNinePatchDrawable = null;
@@ -51,15 +56,33 @@ public class MainActivity extends AppCompatActivity {
         mScreenHeight = dm.heightPixels;
         Log.d(TAG, "mScreenWidth=" + mScreenWidth + " mScreenHeight=" + mScreenHeight);
 
-        mChooseIv = findViewById(R.id.main_iv_choose_image);
         mNinePatchIv = findViewById(R.id.main_iv_nine_patch_image);
 
+        mImageNameEt = findViewById(R.id.main_et_image_name);
+        mAddImageIv = findViewById(R.id.main_iv_add_image);
         mWidthTv = findViewById(R.id.main_tv_image_width_value);
         mHeightTv = findViewById(R.id.main_tv_image_height_value);
         mWidthSeekBar = findViewById(R.id.main_seekbar_set_width);
         mHeightSeekBar = findViewById(R.id.main_seekbar_set_height);
 
-        View.OnTouchListener seekBarOnTouchListener = new View.OnTouchListener() {
+        mWidthSeekBar.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+//                Log.d(TAG, "onTouch event:" + event);
+                if (mNinePatchDrawable == null) {
+                    if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                        Toast.makeText(mContext, R.string.choose_image_hint, Toast.LENGTH_SHORT).show();
+                    }
+                    return true;
+                } else if (mNinePatch.getWidth() >= mScreenWidth) {
+                    Toast.makeText(mContext, R.string.image_full_screen_hint, Toast.LENGTH_SHORT).show();
+                }
+                return false;
+            }
+
+        });
+
+        mHeightSeekBar.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
 //                Log.d(TAG, "onTouch event:" + event);
@@ -72,10 +95,7 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
 
-        };
-
-        mWidthSeekBar.setOnTouchListener(seekBarOnTouchListener);
-        mHeightSeekBar.setOnTouchListener(seekBarOnTouchListener);
+        });
 
         mWidthSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -123,8 +143,40 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        String imagePath = FileUtil.externalStorageDir + "/Download/aaa.png";
-        loadImage(imagePath);
+        mImageNameEt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                Log.d(TAG, "beforeTextChanged:" + s);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Log.d(TAG, "onTextChanged:" + s);
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                mImagePath = FileUtil.getNinePatchRootPath() + s + ".png";
+                Log.d(TAG, "afterTextChanged - " + mImagePath);
+                boolean isExist = FileUtil.isFileExists(mImagePath);
+                Log.d(TAG, "afterTextChanged - isExist:" + isExist);
+                if (isExist) {
+                    mAddImageIv.setVisibility(View.VISIBLE);
+                } else {
+                    mAddImageIv.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
+        mAddImageIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadImage(mImagePath);
+                mImageNameEt.setText(null);
+            }
+        });
+
     }
 
     private void loadImage(String imagePath) {
