@@ -3,5 +3,6 @@
 
     <string name="width">宽度</string>
     <string name="height">高度</string>
+    <string name="choose_image_hint">请先点击右侧按钮选择一张图片</string>
 
 </resources>

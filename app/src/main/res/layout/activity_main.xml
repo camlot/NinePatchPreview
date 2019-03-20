@@ -7,78 +7,90 @@
     tools:context="com.rita.ninepatchpreview.MainActivity">
 
     <ImageView
-        android:id="@+id/main_iv_scale_image"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@mipmap/choose_image"
-        android:layout_centerInParent="true"
-        />
+        android:id="@+id/main_iv_nine_patch_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/main_tv_image_width_height_margin_right"
-                android:layout_marginEnd="@dimen/main_tv_image_width_height_margin_right"
-                android:text="@string/width"
-                android:textSize="@dimen/main_tv_image_width_height_text_size" />
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/main_tv_image_width_value"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/main_tv_image_width_height_margin_right"
+                    android:layout_marginStart="@dimen/main_tv_image_width_height_margin_right"
+                    android:text="@string/width"
+                    android:textSize="@dimen/main_tv_image_width_height_text_size" />
+
+                <TextView
+                    android:id="@+id/main_tv_image_width_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/main_tv_image_width_height_text_size"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <com.rita.ninepatchpreview.MySeekBar
+                android:id="@+id/main_seekbar_set_width"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/main_tv_image_width_height_text_size"
-                android:textStyle="bold" />
+                android:layout_marginLeft="@dimen/main_seekbar_padding_left_right"
+                android:layout_marginRight="@dimen/main_seekbar_padding_left_right"
+                android:alpha="0.8" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/main_tv_image_width_height_margin_right"
+                    android:layout_marginStart="@dimen/main_tv_image_width_height_margin_right"
+                    android:text="@string/height"
+                    android:textSize="@dimen/main_tv_image_width_height_text_size" />
+
+                <TextView
+                    android:id="@+id/main_tv_image_height_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/main_tv_image_width_height_text_size"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <com.rita.ninepatchpreview.MySeekBar
+                android:id="@+id/main_seekbar_set_height"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/main_seekbar_padding_left_right"
+                android:layout_marginRight="@dimen/main_seekbar_padding_left_right"
+                android:alpha="0.8" />
+
         </LinearLayout>
 
-        <SeekBar
-            android:id="@+id/main_seekbar_set_width"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/main_seekbar_padding_left_right"
-            android:layout_marginRight="@dimen/main_seekbar_padding_left_right"
-            android:alpha="0.8" />
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/main_tv_image_width_height_margin_right"
-                android:layout_marginEnd="@dimen/main_tv_image_width_height_margin_right"
-                android:text="@string/height"
-                android:textSize="@dimen/main_tv_image_width_height_text_size" />
-
-            <TextView
-                android:id="@+id/main_tv_image_height_value"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/main_tv_image_width_height_text_size"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <SeekBar
-            android:id="@+id/main_seekbar_set_height"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/main_seekbar_padding_left_right"
-            android:layout_marginRight="@dimen/main_seekbar_padding_left_right"
-            android:alpha="0.8"/>
-
+        <ImageView
+            android:id="@+id/main_iv_choose_image"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/main_tv_image_width_height_margin_right"
+            android:src="@mipmap/choose_image" />
     </LinearLayout>
-
 
 </RelativeLayout>
