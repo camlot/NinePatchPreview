@@ -4,7 +4,7 @@
     <string name="width">Width</string>
     <string name="height">Height</string>
     <string name="input_file_name_hint">Please input nine patch image name…</string>
-    <string name="choose_image_hint">Please choose a image first.</string>
+    <string name="choose_image_hint">Please type a image name and load it first.</string>
     <string name="image_full_screen_hint">Already full screen!</string>
     <string name="image_too_large_warning">Image is too large!</string>
 </resources>
